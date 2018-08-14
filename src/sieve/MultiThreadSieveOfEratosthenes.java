@@ -2,6 +2,8 @@ package sieve;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MultiThreadSieveOfEratosthenes {
@@ -18,10 +20,17 @@ public class MultiThreadSieveOfEratosthenes {
 
     public boolean[] process() {
         ExecutorService executors = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        for(int i = 0; i < workers; i++)
+        for(int i = 0; i < workers; i++) {
             executors.execute(new Processor());
+        }
         executors.shutdown();
-        return bookKeeping;
+        try {
+            executors.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            return bookKeeping;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     class Processor implements Runnable {
