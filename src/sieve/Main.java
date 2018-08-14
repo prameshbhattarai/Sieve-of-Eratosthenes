@@ -19,14 +19,14 @@ public class Main {
         end = System.nanoTime();
         System.out.println("Time taken " + (end - start));
 
-//        start = System.nanoTime();
-//        System.gc();
-//        boolean[] aBookKeeping = a.process();
-//        end = System.nanoTime();
-//        System.out.println("Time taken " + (end - start));
+        start = System.nanoTime();
+        System.gc();
+        boolean[] aBookKeeping = a.process();
+        end = System.nanoTime();
+        System.out.println("Time taken " + (end - start));
 
         System.out.println("Size of primes calculated by SieveOfEratosthenes " + Util.sizeOfPrime(bookKeeping));
         System.out.println("Size of primes calculated by MultiThreadSieveOfEratosthenes " + Util.sizeOfPrime(mBookKeeping));
-//        System.out.println("Size of primes calculated by AtomicThreadSieveOfEratosthenes " + Util.sizeOfPrime(aBookKeeping));
+        System.out.println("Size of primes calculated by AtomicThreadSieveOfEratosthenes " + Util.sizeOfPrime(aBookKeeping));
     }
 }
